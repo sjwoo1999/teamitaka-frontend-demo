@@ -10,3 +10,11 @@ export interface EvaluationCategory {
   label: string;
   key: string;
 }
+
+// Step 타입 확장
+export type EvaluationStep =
+  | "star"
+  | "slider"
+  | "complete1"
+  | "complete2"
+  | "complete3";
