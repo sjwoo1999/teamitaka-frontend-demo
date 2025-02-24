@@ -1,37 +1,33 @@
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+// Navigation.tsx
+import React from "react";
+import { HomeIcon, FolderIcon, BellIcon, UserIcon } from "./IconWrapper";
+import { NavBar, NavItem } from "./NavComponents";
 
-const NavBar = styled.nav`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: white;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-`;
+interface NavigationProps {
+  isMobile: boolean;
+}
 
-const NavItem = styled(NavLink)`
-  text-decoration: none;
-  color: #333;
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  &.active {
-    color: #ff4d4f;
-  }
-`;
-
-export const Navigation: React.FC = () => {
+const Navigation: React.FC<NavigationProps> = ({ isMobile }) => {
   return (
-    <NavBar>
-      <NavItem to="/home">홈</NavItem>
-      <NavItem to="/files">파일</NavItem>
-      <NavItem to="/notifications">알림</NavItem>
-      <NavItem to="/profile">프로필</NavItem>
+    <NavBar $isMobile={isMobile}>
+      <NavItem to="/home" $isMobile={isMobile} aria-label="Home">
+        <HomeIcon size={20} />
+        <span>home</span>
+      </NavItem>
+      <NavItem to="/file" $isMobile={isMobile} aria-label="File">
+        <FolderIcon size={20} />
+        <span>file</span>
+      </NavItem>
+      <NavItem to="/notification" $isMobile={isMobile} aria-label="Notification">
+        <BellIcon size={20} />
+        <span>notification</span>
+      </NavItem>
+      <NavItem to="/profile" $isMobile={isMobile} aria-label="Profile">
+        <UserIcon size={20} />
+        <span>profile</span>
+      </NavItem>
     </NavBar>
   );
 };
+
+export default Navigation;

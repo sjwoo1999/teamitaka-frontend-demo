@@ -1,21 +1,35 @@
-import styled from "styled-components";
-import { ReviewForm } from "../components/ReviewForm";
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { mockUsers } from '../utils/mockData';
+import { ReviewForm } from '../components/ReviewForm';
+import { User } from '../types';
 
-const PageContainer = styled.div`
-  max-width: 400px;
-  margin: 0 auto;
-  background-color: #f5f5f5;
-  min-height: 100vh;
-  padding: 20px;
-`;
+const EvaluationPage: React.FC = () => {
+  const { userId } = useParams<{ userId: string }>();
 
-export const EvaluationPage: React.FC = () => {
-  // 목업 데이터로 첫 번째 사용자 선택 (실제로는 라우팅 또는 상태로 동적으로 처리 가능)
-  const userId = 1;
+  // mockUsers에서 URL 파라미터 userId와 일치하는 유저 찾기
+  const user = mockUsers.find((u) => u.id === parseInt(userId || '0'));
+
+  useEffect(() => {
+    console.log(`Evaluating member: ${userId}`);
+  }, [userId]);
+
+  if (!user) {
+    return <div>유효하지 않은 팀원 ID입니다.</div>;
+  }
+
+  // ReviewForm에서 최종 제출(onSubmit) 시 호출될 콜백
+  const handleSubmit = (ratings: { [key: string]: number }, comment: string) => {
+    console.log('제출된 평가:', { userId, ratings, comment });
+    // 서버 전송, 페이지 이동 등 후속 처리 로직
+  };
 
   return (
-    <PageContainer>
-      <ReviewForm userId={userId} />
-    </PageContainer>
+    <div>
+      {/* ReviewForm에 유저 정보와 onSubmit 콜백 전달 */}
+      <ReviewForm user={user as User} onSubmit={handleSubmit} />
+    </div>
   );
 };
+
+export default EvaluationPage;

@@ -3,6 +3,7 @@ export interface User {
   name: string;
   profileImage: string;
   role: string;
+  evaluated: boolean; // 평가 완료 여부
 }
 
 export interface EvaluationCategory {
@@ -11,10 +12,4 @@ export interface EvaluationCategory {
   key: string;
 }
 
-// Step 타입 확장
-export type EvaluationStep =
-  | "star"
-  | "slider"
-  | "complete1"
-  | "complete2"
-  | "complete3";
+export type EvaluationStep = "star" | "slider" | "complete";

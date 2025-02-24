@@ -1,11 +1,12 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { EvaluationPage } from "./pages/EvaluationPage";
-import { HomePage } from "./pages/HomePage"; // 새로 추가
-import { FilesPage } from "./pages/FilesPage"; // 새로 추가
-import { NotificationsPage } from "./pages/NotificationsPage"; // 새로 추가
-import { Navigation } from "./components/Navigation";
-import styled, { createGlobalStyle } from "styled-components";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import styled, { createGlobalStyle } from 'styled-components';
+import EvaluationPage from './pages/EvaluationPage';
+import { HomePage } from './pages/HomePage';
+import { FilesPage } from './pages/FilesPage';
+import { NotificationsPage } from './pages/NotificationsPage';
+import { ProfilePage } from './pages/ProfilePage';
+import Navigation from './components/Navigation';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -28,14 +29,16 @@ function App() {
       <Router>
         <AppContainer>
           <Routes>
+            {/* 유저 ID를 파라미터로 받아서 EvaluationPage에서 처리 */}
             <Route path="/evaluate/:userId" element={<EvaluationPage />} />
-            <Route path="/profile" element={<EvaluationPage />} />
-            <Route path="/home" element={<HomePage />} /> {/* 홈 페이지 추가 */}
-            <Route path="/files" element={<FilesPage />} /> {/* 파일 페이지 추가 */}
-            <Route path="/notifications" element={<NotificationsPage />} /> {/* 알림 페이지 추가 */}
-            <Route path="/" element={<HomePage />} /> {/* 기본 경로를 홈으로 설정 */}
+            
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/files" element={<FilesPage />} />
+            <Route path="/notifications" element={<NotificationsPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/" element={<HomePage />} />
           </Routes>
-          <Navigation />
+          <Navigation isMobile={true} />
         </AppContainer>
       </Router>
     </>
